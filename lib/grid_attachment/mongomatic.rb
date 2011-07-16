@@ -1,3 +1,6 @@
+require 'mime/types'
+require 'uri'
+
 class GridmaticObserver < Mongomatic::Observer
   def after_insert_or_update(instance, opts)
     instance.send(:create_attachments)
@@ -78,7 +81,7 @@ module GridAttachment
         define_method("#{name}_url") do
           _id   = self["#{name}_id"]
           _name = self["#{name}_name"]
-          ["/#{prefix}", _id, _name].join('/') if _id && _name
+          URI.escape(["/#{prefix}", _id, _name].join('/')) if _id && _name
         end
 
         ##
@@ -90,7 +93,7 @@ module GridAttachment
           _ext  = File.extname(_name)
           _base = File.basename(_name,_ext)
           _name = "#{_base}_#{thumb}#{_ext}"
-          ["/#{prefix}", _id, _name].join('/') if _id && _name
+          URI.escape(["/#{prefix}", _id, _name].join('/')) if _id && _name
         end
       end
 

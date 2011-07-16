@@ -1,4 +1,5 @@
 require 'mime/types'
+require 'uri'
 
 module GridAttachment
   module MongoMapper
@@ -80,7 +81,7 @@ module GridAttachment
         define_method("#{name}_url") do
           _id   = read_attribute("#{name}_id")
           _name = read_attribute("#{name}_name")
-          ["/#{prefix}", _id, _name].join('/') if _id && _name
+          URI.escape(["/#{prefix}", _id, _name].join('/')) if _id && _name
         end
 
         ##
@@ -92,7 +93,7 @@ module GridAttachment
           _ext  = File.extname(_name)
           _base = File.basename(_name,_ext)
           _name = "#{_base}_#{thumb}#{_ext}"
-          ["/#{prefix}", _id, _name].join('/') if _id && _name
+          URI.escape(["/#{prefix}", _id, _name].join('/')) if _id && _name
         end
       end
 
