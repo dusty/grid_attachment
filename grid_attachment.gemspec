@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
     "README.txt",
     "lib/grid_attachment/mongo_mapper.rb",
     "lib/grid_attachment/mongo_odm.rb",
+    "lib/grid_attachment/mongomatic.rb",
     "test/test_mongo_mapper.rb",
     "test/test_mongo_odm.rb"
   ]
