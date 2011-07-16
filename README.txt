@@ -38,6 +38,14 @@ Usage
     attachment :image, :prefix => :grid
   end
 
+  require 'grid_attachment/mongoid'
+  class Monkey
+    include Mongoid::Document
+    include GridAttachment::Mongoid
+
+    attachment :image, :prefix => :grid
+  end
+
   m = Monkey.new(:name => 'name')
   m.save
 

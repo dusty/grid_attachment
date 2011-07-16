@@ -12,8 +12,11 @@ Gem::Specification.new do |s|
     "lib/grid_attachment/mongo_mapper.rb",
     "lib/grid_attachment/mongo_odm.rb",
     "lib/grid_attachment/mongomatic.rb",
+    "lib/grid_attachment/mongoid.rb",
     "test/test_mongo_mapper.rb",
-    "test/test_mongo_odm.rb"
+    "test/test_mongo_odm.rb",
+    "test/test_mongomatic.rb",
+    "test/test_mongoid.rb"
   ]
   s.extra_rdoc_files = ["README.txt"]
   s.add_dependency('mime-types')
