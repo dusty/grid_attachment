@@ -1,7 +1,7 @@
 Summary
 
    GridAttachment is a GridFS plugin for MongoDB ORMs.
-   Right now it supports MongoMapper, MongoODM, and Mongomatic.
+   Supports MongoMapper, Mongoid, MongoODM, and Mongomatic.
 
    Support is built in for rack_grid and rack_grid_thumb to generate URLS and thumbnails:
      http://github.com/dusty/rack_grid
@@ -66,13 +66,18 @@ Usage
   # To get the thumbail URL for rack_grid_thumb
   m.image_thumb('50x50')               # /grid/4e049e7c69c3b27d53000005/me_50x50.jpg
 
-  # Sinatra Form
-  # You can pass the params[:monkey][:image] hash to the Monkey class to set the image
-  # Or, depending on your ORM, create including all params (Monkey.new(params[:monkey]))
+  # HTML form example
   <form action = "/monkeys" method="post" enctype="multipart/form-data">
-    <input id="name"  name="monkey[name]" type="text" />
-    <input id="image" name="monkey[image]" type="file" />
+    <input id="image" name="image" type="file" />
   </form>
+
+  # Use the image hash provided in params with Sinatra
+  post '/monkeys' do
+    m = Monkey.new
+    m.image = params[:image]
+    m.save
+    # Or just Monkey.new(params).save
+  end
 
 
 Inspired By
