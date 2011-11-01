@@ -82,10 +82,10 @@ Usage
   # To get the attachment
   m.image.read
 
-  # To get the URL for rack_grid
+  # To get the URL for rack/gridfs
   m.image_url                          # /grid/4e049e7c69c3b27d53000005/me.jpg
 
-  # To get the thumbail URL for rack_grid_thumb
+  # To get the thumbail URL for rack/thumb
   m.image_thumb('50x50')               # /grid/4e049e7c69c3b27d53000005/me_50x50.jpg
 
   # HTML form example
