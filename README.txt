@@ -3,17 +3,39 @@ Summary
    GridAttachment is a GridFS plugin for MongoDB ORMs.
    Supports MongoMapper, Mongoid, MongoODM, and Mongomatic.
 
-   Support is built in for rack_grid and rack_grid_thumb to generate URLS and thumbnails:
-     http://github.com/dusty/rack_grid
-     http://github.com/dusty/rack_grid_thumb
+   Support is built in for rack/gridfs.  Can also be used with rack/thumb to dynamically
+   generate thumbnails, and rack/cache to cache files.
 
-   You can pass in a File or a Hash as received by Sinatra on file uploads.
+     Rack::Gridfs - https://github.com/skinandbones/rack-gridfs.git
+     Rack::Thumb  - https://github.com/akdubya/rack-thumb
+     Rack::Cache  - https://github.com/rtomayko/rack-cache
 
 Installation
 
   # gem install grid_attachment
 
 Usage
+
+  # To use with rack/gridfs you will need to define a custom mapper.
+  # For example, with Sinatra.
+
+  use Rack::Cache, {
+    :verbose     => false,
+    :metastore   => 'file:/var/cache/rack/meta',
+    :entitystore => 'file:/var/cache/rack/body'
+  }
+
+  use Rack::Thumb
+
+  # Custom mapper allows rack/gridfs to use the URL schema provided by grid_attachment.
+  use Rack::GridFS, {
+    :prefix => 'grid',
+    :db => MongoMapper.database,
+    :expires => 1800,
+    :mapper => lambda { |path| %r{^/grid/(\w+)/.*}.match(path)[1] }
+  }
+
+  # Define your models depending on the ORM you use.
 
   require 'grid_attachment/mongo_mapper'
   class Monkey
